@@ -63,6 +63,40 @@ export function TodoProvider({ children }) {
     setTodos(nextTodos);
   };
 
+  const createToggledDetails = (details, detailId) => {
+    return details.map((detail) =>
+      detail.id === detailId ? { ...detail, checked: !detail.checked } : detail
+    );
+  };
+
+  const toggleDetail = (todoId, detailId) => {
+    const nextTodos = todos.map((todo) => {
+      if (todo.id !== todoId) return todo;
+
+      return {
+        ...todo,
+        details: createToggledDetails(todo.details, detailId),
+      };
+    });
+    setTodos(nextTodos);
+  };
+
+  const createRemovedDetails = (details, detailId) => {
+    return details.filter((detail) => detail.id !== detailId);
+  };
+
+  const removeDetail = (todoId, detailId) => {
+    const nextTodos = todos.map((todo) => {
+      if (todo.id !== todoId) return todo;
+
+      return {
+        ...todo,
+        details: createRemovedDetails(todo.details, detailId),
+      };
+    });
+    setTodos(nextTodos);
+  };
+
   return (
     <TodoContext.Provider
       value={{
@@ -73,6 +107,8 @@ export function TodoProvider({ children }) {
         toggleTodo,
         removeTodo,
         addDetail,
+        toggleDetail,
+        removeDetail,
       }}
     >
       {children}
