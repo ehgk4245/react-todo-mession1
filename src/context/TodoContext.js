@@ -1,9 +1,11 @@
-import { createContext, useRef, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
+import { load, save } from "../utils/storage";
 
 export const TodoContext = createContext();
+const KEY = "todos";
 
 export function TodoProvider({ children }) {
-  const [todos, setTodos] = useState(); //storage에서 불러온 값 초기값으로
+  const [todos, setTodos] = useState(() => load(KEY));
   const [openDetailId, setOpenDetailId] = useState();
 
   const nextTodoId = useRef(
@@ -11,7 +13,7 @@ export function TodoProvider({ children }) {
   );
 
   useEffect(() => {
-    //storage저장
+    save(KEY, todos);
   }, [todos]);
 
   return (
