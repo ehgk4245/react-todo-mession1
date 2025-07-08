@@ -1,7 +1,7 @@
 import { useTodos } from "../../hooks/useTodos";
 
 function TodoItem({ todo }) {
-  const { toggleTodo } = useTodos();
+  const { toggleTodo, removeTodo } = useTodos();
 
   return (
     <li>
@@ -11,6 +11,9 @@ function TodoItem({ todo }) {
         onChange={() => toggleTodo(todo.id)}
       />
       {todo.text}
+      <button type="button" onClick={() => removeTodo(todo.id)}>
+        삭제
+      </button>
     </li>
   );
 }

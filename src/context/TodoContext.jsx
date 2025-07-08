@@ -33,8 +33,15 @@ export function TodoProvider({ children }) {
     setTodos(nextTodos);
   };
 
+  const removeTodo = (id) => {
+    const nextTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(nextTodos);
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, openDetailId, addTodo, toggleTodo }}>
+    <TodoContext.Provider
+      value={{ todos, openDetailId, addTodo, toggleTodo, removeTodo }}
+    >
       {children}
     </TodoContext.Provider>
   );
