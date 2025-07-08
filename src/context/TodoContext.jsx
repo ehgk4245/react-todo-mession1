@@ -16,8 +16,18 @@ export function TodoProvider({ children }) {
     save(KEY, todos);
   }, [todos]);
 
+  const addTodo = (text) => {
+    const newTodo = {
+      id: nextTodoId.current++,
+      text,
+      checked: false,
+      details: [],
+    };
+    setTodos([...todos, newTodo]);
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, openDetailId }}>
+    <TodoContext.Provider value={{ todos, openDetailId, addTodo }}>
       {children}
     </TodoContext.Provider>
   );
