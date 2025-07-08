@@ -11,7 +11,7 @@ function TodoItem({ todo }) {
             <button
                 type="button"
                 onClick={() => {
-                    openDetailId ? setOpenDetailId(null) : setOpenDetailId(todo.id)
+                    openDetailId === todo.id ? setOpenDetailId(null) : setOpenDetailId(todo.id)
                 }}
             >
                 세부사항
@@ -19,7 +19,7 @@ function TodoItem({ todo }) {
             <button type="button" onClick={() => removeTodo(todo.id)}>
                 삭제
             </button>
-            {openDetailId && <TodoDetail todoId={todo.id} />}
+            {openDetailId === todo.id && <TodoDetail todoId={todo.id} />}
         </li>
     )
 }
