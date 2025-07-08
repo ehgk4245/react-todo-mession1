@@ -6,7 +6,7 @@ const KEY = "todos";
 
 export function TodoProvider({ children }) {
   const [todos, setTodos] = useState(() => load(KEY));
-  const [openDetailId, setOpenDetailId] = useState();
+  const [openDetailId, setOpenDetailId] = useState(null);
 
   const nextTodoId = useRef(
     todos.length === 0 ? 1 : Math.max(...todos.map((todo) => todo.id)) + 1
@@ -38,9 +38,42 @@ export function TodoProvider({ children }) {
     setTodos(nextTodos);
   };
 
+  const createNewDetails = (details, text) => {
+    const nextDetailId =
+      details.length === 0 ? 1 : Math.max(...details.map((d) => d.id)) + 1;
+
+    const newDetail = {
+      id: nextDetailId,
+      text,
+      checked: false,
+    };
+
+    return [...details, newDetail];
+  };
+
+  const addDetail = (text, todoId) => {
+    const nextTodos = todos.map((todo) => {
+      if (todo.id !== todoId) return todo;
+
+      return {
+        ...todo,
+        details: createNewDetails(todo.details, text),
+      };
+    });
+    setTodos(nextTodos);
+  };
+
   return (
     <TodoContext.Provider
-      value={{ todos, openDetailId, addTodo, toggleTodo, removeTodo }}
+      value={{
+        todos,
+        openDetailId,
+        setOpenDetailId,
+        addTodo,
+        toggleTodo,
+        removeTodo,
+        addDetail,
+      }}
     >
       {children}
     </TodoContext.Provider>
