@@ -1,5 +1,11 @@
+import TodoHead from "./components/main/TodoHead";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <TodoHead />
+    </>
+  );
 }
 
 export default App;
