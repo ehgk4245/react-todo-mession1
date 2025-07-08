@@ -26,8 +26,15 @@ export function TodoProvider({ children }) {
     setTodos([...todos, newTodo]);
   };
 
+  const toggleTodo = (id) => {
+    const nextTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, checked: !todo.checked } : todo
+    );
+    setTodos(nextTodos);
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, openDetailId, addTodo }}>
+    <TodoContext.Provider value={{ todos, openDetailId, addTodo, toggleTodo }}>
       {children}
     </TodoContext.Provider>
   );
