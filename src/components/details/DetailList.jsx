@@ -6,7 +6,7 @@ function DetailList({ todoId }) {
     const { details } = todos.find((todo) => todo.id === todoId)
 
     return (
-        <ul>
+        <ul className="space-y-1">
             {details.map((detail) => (
                 <DetailItem key={detail.id} detail={detail} todoId={todoId} />
             ))}
