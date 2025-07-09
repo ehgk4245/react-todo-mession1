@@ -1,5 +1,6 @@
 import { createContext, useEffect, useRef, useState } from 'react'
 import { load, save } from '../utils/storage'
+import { createNewDetails, createToggledDetails, createRemovedDetails } from '../utils/detailUtils'
 
 export const TodoContext = createContext()
 const KEY = 'todos'
@@ -34,18 +35,6 @@ export function TodoProvider({ children }) {
         setTodos(nextTodos)
     }
 
-    const createNewDetails = (details, text) => {
-        const nextDetailId = details.length === 0 ? 1 : Math.max(...details.map((d) => d.id)) + 1
-
-        const newDetail = {
-            id: nextDetailId,
-            text,
-            checked: false,
-        }
-
-        return [...details, newDetail]
-    }
-
     const addDetail = (text, todoId) => {
         const nextTodos = todos.map((todo) => {
             if (todo.id !== todoId) return todo
@@ -58,10 +47,6 @@ export function TodoProvider({ children }) {
         setTodos(nextTodos)
     }
 
-    const createToggledDetails = (details, detailId) => {
-        return details.map((detail) => (detail.id === detailId ? { ...detail, checked: !detail.checked } : detail))
-    }
-
     const toggleDetail = (todoId, detailId) => {
         const nextTodos = todos.map((todo) => {
             if (todo.id !== todoId) return todo
@@ -72,10 +57,6 @@ export function TodoProvider({ children }) {
             }
         })
         setTodos(nextTodos)
-    }
-
-    const createRemovedDetails = (details, detailId) => {
-        return details.filter((detail) => detail.id !== detailId)
     }
 
     const removeDetail = (todoId, detailId) => {
