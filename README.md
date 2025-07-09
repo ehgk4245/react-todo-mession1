@@ -75,3 +75,9 @@ react-todo-mission1/
 │ └── index.css
 └── index.html
 ```
+---
+
+## 🛠️ 기술 스택
+
+-   React
+-   Tailwind CSS
